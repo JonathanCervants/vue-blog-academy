@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
     {
 
         Estudiante::factory(10)->create();
-        Curso::factory(10)->create()->each(function(){
-            
+        Curso::factory(10)->create()->each(function($curso){
+            // $curso->estudiante()->sync(
+            //  $estudiante = '0';
+            // )
         });
         // \App\Models\User::factory(10)->create();
 

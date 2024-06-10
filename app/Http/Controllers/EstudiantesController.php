@@ -20,10 +20,29 @@ class EstudiantesController extends Controller
 
     public function update(Request $request, $id){
         $estudiante = Estudiante::find($id);
-        $estudiante->array(
-            'nombre' ->request('nombre')
-        );
-        $estudiante->save();
-        return $estudiante;
+        
+        $estudiante->nombre = $request->nombre;
+        $estudiante->apellido = $request->apellido;
+        $estudiante->foto = $request->foto;
+
+        $estudiante->update();
+
+        $blog->fill($request->post())->save(); 
+        return  response()->json([
+            'blog' =>$blog
+        ]);
+       // return redirec::to('/');
+    }
+
+    public function destroy($id){
+        if(Estudiante::find($id)){
+            if(Estudiante::$id->delete()){
+                return "Eliminado exitosamente";
+            }else{
+                return "Error al eliminar ><";
+            }
+        }else{  
+            return "No encontrado :(";
+        }
     }
 }
